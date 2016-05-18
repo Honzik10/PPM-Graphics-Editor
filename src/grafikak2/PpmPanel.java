@@ -45,8 +45,10 @@ public class PpmPanel extends JPanel {
     private int[][] pixels;
     private int[][] oryginalPixels;
     private int readedPixelNumber;
+    boolean isImageScaled;
 
     public PpmPanel() {
+        isImageScaled = false;
         imageType = "";
         maxColor = 1;
         readedPixelNumber = 0;
@@ -397,12 +399,7 @@ public class PpmPanel extends JPanel {
     }
 
     //Checks if image is too big for current monitor resolution
-    //If it is too big then returns 1st pixel number to skip
-    //Else 0
-    //TODO slider skalowania
-    //interfejs wczytywania plikow oraz filtrowanie po rozszerzeniu
-    //skalowanie jpeg
-    //wnioski do zadania + data wykonania
+    //If img is too big then returns 1st pixel number to skip, else 0.
     private int checkForScaling() {
         int skipPixelNumber = 0;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -425,6 +422,7 @@ public class PpmPanel extends JPanel {
 
     //display oryginal image from pixels array
     private void displayOryginalImage() {
+        isImageScaled = false;
         this.setSize(oryginalWidth, oryginalHeight);
         image = new BufferedImage(oryginalWidth, oryginalHeight, BufferedImage.TYPE_INT_RGB);
         int row = 0, column = 0;
@@ -446,6 +444,7 @@ public class PpmPanel extends JPanel {
 
     //display scaled image from pixels
     private void displayScaledImge(int scaleIndex) {
+        isImageScaled = true;
         this.setSize(scaledWidth, scaledHeight);
         image = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         int row = 0, column = 0;
@@ -467,18 +466,28 @@ public class PpmPanel extends JPanel {
         this.setSize(width, height);
     }
 
+    //Returns image width. Returns scaled width if displayed imaged is scaled. Else return oryginal width.
     public int getImageWidth() {
         if (image != null) {
-            return image.getWidth();
+            if(isImageScaled){
+                return scaledWidth;
+            }else{
+                return image.getWidth();
+            }
         } else {
             return 0;
         }
 
     }
 
-    public int getImageHeigth() {
+    //Returns image heigth. Returns scaled heigth if displayed imaged is scaled. Else return oryginal heigthh.
+    public int getImageHeight() {
         if (image != null) {
-            return image.getHeight();
+            if(isImageScaled){
+                return scaledHeight;
+            }else{
+                return image.getHeight();
+            } 
         } else {
             return 0;
         }
@@ -486,6 +495,7 @@ public class PpmPanel extends JPanel {
 
     public void loadAndDisplayJPG(String location) {
         image = null;
+        pixels = null;
         try {
             image = ImageIO.read(new File(location));
             //image = ImageIO.read(file);
@@ -513,7 +523,7 @@ public class PpmPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        resizePanel(getImageWidth(), getImageHeigth());
+        resizePanel(getImageWidth(), getImageHeight());
         g.drawImage(image, 0, 0, this);
     }
 

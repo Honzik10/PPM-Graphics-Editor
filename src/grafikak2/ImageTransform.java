@@ -18,7 +18,7 @@ public class ImageTransform {
     public void transformImage(int appliedRed, int appliedGreen, int appliedBlue, ArrayList<ArrayList> operationLUTList) {
 
         int width = imagePanel.getImageWidth();
-        int heigth = imagePanel.getImageHeigth();
+        int heigth = imagePanel.getImageHeight();
         int[][] pixels = imagePanel.getPixels();
         int[][] transformedPixels = new int[heigth][width];
 
@@ -46,7 +46,7 @@ public class ImageTransform {
 
     public void imageToDarkScale() {
         int width = imagePanel.getImageWidth();
-        int heigth = imagePanel.getImageHeigth();
+        int heigth = imagePanel.getImageHeight();
         int[][] pixels = imagePanel.getPixels();
         int[][] darkScalePixels = new int[heigth][width];
 
@@ -73,7 +73,7 @@ public class ImageTransform {
     
     public void imageToDarkScale2() {
         int width = imagePanel.getImageWidth();
-        int heigth = imagePanel.getImageHeigth();
+        int heigth = imagePanel.getImageHeight();
         int[][] pixels = imagePanel.getPixels();
         int[][] darkScalePixels = new int[heigth][width];
 

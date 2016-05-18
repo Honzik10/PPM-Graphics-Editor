@@ -12,7 +12,7 @@ import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Histogram extends JFrame {
+public class HistogramFrame extends JFrame {
     
     private int[] grayValue;
 
@@ -20,7 +20,7 @@ public class Histogram extends JFrame {
         return grayValue;
     }
     
-    public Histogram(int [][]pixels){
+    public HistogramFrame(int [][]pixels){
         IntervalXYDataset ds = createDataSet(pixels);
         createHistogram(ds);
     }

@@ -34,10 +34,10 @@ public class Binaryzation {
     }
 
     public int calculateBlackPercentageThreshold(int percent) {
-        Histogram h = imgFrame.getHistogram(false);
+        HistogramFrame h = imgFrame.getHistogram(false);
         int[] hist = h.getGrayValue();
         int sum = 0;
-        int numberOfPix = (int) ((imgPanel.getImageHeigth() * imgPanel.getImageWidth()) * percent / 100);
+        int numberOfPix = (int) ((imgPanel.getImageHeight() * imgPanel.getImageWidth()) * percent / 100);
 
         int histIndex = 0;
 
@@ -50,7 +50,7 @@ public class Binaryzation {
     }
 
     public int calculateMeanIterativeSelection() {
-        Histogram h = imgFrame.getHistogram(false);
+        HistogramFrame h = imgFrame.getHistogram(false);
         int[] hist = h.getGrayValue();
 
         boolean tEqual = false; //T(B) T(W)

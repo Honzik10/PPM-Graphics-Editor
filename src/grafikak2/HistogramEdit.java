@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class HistogramEdit extends javax.swing.JFrame {
 
     PpmPanel imagePanel;
-    Histogram histogram;
+    HistogramFrame histogram;
     ArrayList<Integer> eqLut;
 
-    public HistogramEdit(PpmPanel imagePanel, Histogram hist) {
+    public HistogramEdit(PpmPanel imagePanel, HistogramFrame hist) {
         this.imagePanel = imagePanel;
         histogram = hist;
         initComponents();

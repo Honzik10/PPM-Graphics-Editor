@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 //Reading file methods compared - http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly
 package grafikak2;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -31,9 +25,10 @@ public class MainFrame extends javax.swing.JFrame {
     ImageFilterFrame imgFilterFrame;
     BinaryzationFrame binaryFrame;
     PpmPanel imagePanel;
-    Histogram hist;
+    HistogramFrame hist;
     HistogramEdit he;
     BeziereCurveFrame beziereCurveFrame;
+    ShapePainterFrame shapePainterFrame;
 
     public MainFrame() {
         initComponents();
@@ -46,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         FileFilter ppmFilter = new FileNameExtensionFilter("Ppm file", "ppm");
         fChooser.addChoosableFileFilter(jpgFilter);
         fChooser.addChoosableFileFilter(ppmFilter);
-        
+
         JMenuItem openMI = new JMenuItem("Otwórz");
         JMenuItem saveMI = new JMenuItem("Zapisz");
         JMenuItem exitMI = new JMenuItem("Wyjdz");
@@ -112,10 +107,10 @@ public class MainFrame extends javax.swing.JFrame {
                 openBeziereCurveDrawPanel();
             }
         });
-        beziereCurveMI.addActionListener(new ActionListener() {
+        shapeDrawMI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openShapeDrawFrame();
+                openShapePainterFrame();
             }
         });
 
@@ -128,6 +123,7 @@ public class MainFrame extends javax.swing.JFrame {
         histogramMenu.add(changeHistMI);
         binaryzationMenu.add(binaryzationMI);
         otherMenu.add(beziereCurveMI);
+        otherMenu.add(shapeDrawMI);
     }
 
     /**
@@ -238,10 +234,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void createHistogram() {
         int[][] pixels = imagePanel.getPixels();
-        hist = new Histogram(pixels); //Creates and display histogram for currently displayed image
+        hist = new HistogramFrame(pixels); //Creates and display histogram for currently displayed image
     }
 
-    public Histogram getHistogram(boolean isVisible) {
+    public HistogramFrame getHistogram(boolean isVisible) {
         if (hist == null) {
             createHistogram();
             hist.setVisible(isVisible);
@@ -287,8 +283,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private void openShapeDrawFrame() {
-
+    private void openShapePainterFrame() {
+        if (shapePainterFrame != null) {
+            shapePainterFrame.setVisible(true);
+        } else {
+            shapePainterFrame = new ShapePainterFrame();
+            shapePainterFrame.setVisible(true);
+        }
     }
 
     public void loadAndDisplayImage(String location) {
@@ -296,8 +297,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (imagePanel.loadImage(location)) {
             if (imagePanel.displayImage()) {
-                System.out.println("Displaying image of size:" + imagePanel.getImageWidth() + "x" + imagePanel.getImageHeigth());
-                this.setSize(imagePanel.getImageWidth() + 70, imagePanel.getImageHeigth() + 30);
+                System.out.println("Displaying image of size:" + imagePanel.getImageWidth() + "x" + imagePanel.getImageHeight());
+                this.setSize(imagePanel.getImageWidth() + 70, imagePanel.getImageHeight() + 30);
                 setVisible(true);
 
             } else {
@@ -322,14 +323,14 @@ public class MainFrame extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private String getFileExtension(String location){
+    private String getFileExtension(String location) {
         int extStartIndex = location.length() - 4;
         return location.substring(extStartIndex);
     }
-    
+
     private void resize2() {
-        int width = ((PpmPanel) jPanel1).getWidth() + 30;
-        int height = ((PpmPanel) jPanel1).getHeight() + jMenuBar1.getHeight() + 80;
+        int width = ((PpmPanel) jPanel1).getImageWidth() + 10;
+        int height = ((PpmPanel) jPanel1).getImageHeight() + jMenuBar1.getHeight() + 30;
         this.setSize(width, height);
     }
 
@@ -344,9 +345,9 @@ public class MainFrame extends javax.swing.JFrame {
             File file = fChooser.getSelectedFile();
             String location = file.getAbsolutePath();
             String fileExt = getFileExtension(location);
-            if(fileExt.compareTo(".ppm") == 0)
+            if (fileExt.compareTo(".ppm") == 0) {
                 loadAndDisplayImage(location);
-            else{
+            } else {
                 loadAndDisplayJPGImage(location);
             }
         }
