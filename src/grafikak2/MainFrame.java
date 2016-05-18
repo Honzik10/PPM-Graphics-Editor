@@ -7,15 +7,15 @@
 package grafikak2;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -34,7 +34,6 @@ public class MainFrame extends javax.swing.JFrame {
     Histogram hist;
     HistogramEdit he;
     BeziereCurveFrame beziereCurveFrame;
-    OpenImageFrame openImageFrame;
 
     public MainFrame() {
         initComponents();
@@ -43,6 +42,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         String userPictureDirPath = System.getProperty("user.home") + "/Pictures";
         fChooser = new JFileChooser(userPictureDirPath);
+        FileFilter jpgFilter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+        FileFilter ppmFilter = new FileNameExtensionFilter("Ppm file", "ppm");
+        fChooser.addChoosableFileFilter(jpgFilter);
+        fChooser.addChoosableFileFilter(ppmFilter);
+        
         JMenuItem openMI = new JMenuItem("Otwórz");
         JMenuItem saveMI = new JMenuItem("Zapisz");
         JMenuItem exitMI = new JMenuItem("Wyjdz");
@@ -208,35 +212,11 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private void openSaveGui() {
-        if (isImageLoaded()) {
-            String location = JOptionPane.showInputDialog("Podaj ścieżke do zapisu:");
-            PpmPanel imagePanel = ((PpmPanel) jPanel1);
-            try {
-                imagePanel.saveImage(location);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-    }
-
-    private void openOpenImageFrame() {
-        if (openImageFrame != null) {
-            openImageFrame.setVisible(true);
-        } else {
-            openImageFrame = new OpenImageFrame();
-            openImageFrame.setVisible(true);
-        }
-    }
-
     private void openEditPicFrame() {
         if (isImageLoaded()) {
             editPicFrame.setVisible(true);
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -244,7 +224,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (isImageLoaded()) {
             imgFilterFrame.setVisible(true);
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -252,7 +232,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (isImageLoaded()) {
             createHistogram();
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -274,7 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (isImageLoaded()) {
             createHistogramEditFrame();
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -294,7 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
                 binaryFrame.setVisible(true);
             }
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -306,9 +286,9 @@ public class MainFrame extends javax.swing.JFrame {
             beziereCurveFrame.setVisible(true);
         }
     }
-    
-    private void openShapeDrawFrame(){
-        
+
+    private void openShapeDrawFrame() {
+
     }
 
     public void loadAndDisplayImage(String location) {
@@ -342,21 +322,13 @@ public class MainFrame extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private void resize() {
-        int width = 0;
-        int height = 100;
-        Component[] component = this.getComponents();
-
-        for (Component component1 : component) {
-            width += component1.getWidth();
-            height += component1.getHeight();
-        }
-
-        this.setSize(width, height);
+    private String getFileExtension(String location){
+        int extStartIndex = location.length() - 4;
+        return location.substring(extStartIndex);
     }
-
+    
     private void resize2() {
-        int width = ((PpmPanel) jPanel1).getWidth();
+        int width = ((PpmPanel) jPanel1).getWidth() + 30;
         int height = ((PpmPanel) jPanel1).getHeight() + jMenuBar1.getHeight() + 80;
         this.setSize(width, height);
     }
@@ -371,7 +343,12 @@ public class MainFrame extends javax.swing.JFrame {
         if (openState == JFileChooser.APPROVE_OPTION) {
             File file = fChooser.getSelectedFile();
             String location = file.getAbsolutePath();
-            loadAndDisplayImage(location);
+            String fileExt = getFileExtension(location);
+            if(fileExt.compareTo(".ppm") == 0)
+                loadAndDisplayImage(location);
+            else{
+                loadAndDisplayJPGImage(location);
+            }
         }
     }
 
@@ -390,37 +367,12 @@ public class MainFrame extends javax.swing.JFrame {
 
             }
         } else {
-            displayGuiMessage("Musisz otworzyć obraz z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpenImageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpenImageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpenImageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpenImageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainFrame().setVisible(true);
