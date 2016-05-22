@@ -29,9 +29,7 @@ public class ShapeTransformDrawPanel extends JPanel {
     private void mousePressedAction(MouseEvent evt) {
         double x = evt.getX();
         double y = evt.getY();
-        //Offset
-        Point2D clickPoint = new Point2D.Double(x+centerX, y+centerY);
-
+        Point2D clickPoint = new Point2D.Double(x, y);
         simpleShape.addPoint(clickPoint);
         repaint();
     }
@@ -44,22 +42,20 @@ public class ShapeTransformDrawPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        this.removeAll();
         drawLines(g2d);
         drawXYAxis(g2d);
     }
 
     private void drawLines(Graphics2D g2d) {
+        
         List<Point2D> pointList = simpleShape.getPointList();
         int pointListSize = pointList.size();
         Point2D currentPoint;
         Point2D nextPoint;
-        for (int i = 0; i < pointListSize; i++) {
+        for (int i = 0; i < pointListSize-1; i++) {
             currentPoint = pointList.get(i);
-            if (i < pointListSize - 1) {
-                nextPoint = pointList.get(i + 1);
-            } else {
-                nextPoint = pointList.get(0);
-            }
+            nextPoint = pointList.get(i + 1);
 
             Line2D line = new Line2D.Double(currentPoint, nextPoint);
             g2d.draw(line);

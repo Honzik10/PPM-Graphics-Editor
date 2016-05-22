@@ -49,21 +49,15 @@ public class Transform2D {
         return newVector;
     }
 
-    public void rotatePointList(List<Point2D> pointList, int angle) {
+    public void rotatePointList(List<Point2D> pointList, int angle, double centerX, double centerY) {
         Point2D rotatedPoint, currentPoint;
         List<Point2D> rotatedPointList = new ArrayList();
 
         for (int i = 0; i < pointList.size(); i++) {
             currentPoint = pointList.get(i);
-            rotatedPoint = rotatePoint(currentPoint, angle);
+            rotatedPoint = rotatePoint(currentPoint, angle, centerX, centerY);
             rotatedPointList.add(i, rotatedPoint);
             //System.out.println("Rotacja pktu (" + currentPoint.getX() + "," + currentPoint.getY() + ") do punktu ("  + rotatedPoint.getX() + "," + rotatedPoint.getY() + ")");
-        }
-
-        for (int i = 0; i < rotatedPointList.size(); i++) {
-            Point2D p1 = pointList.get(i);
-            Point2D p2 = rotatedPointList.get(i);
-            System.out.println("Rotacja pktu (" + p1.getX() + "," + p1.getY() + ") do punktu (" + p2.getX() + "," + p2.getY() + ")");
         }
 
         pointList.clear();
@@ -71,15 +65,12 @@ public class Transform2D {
         rotatedPointList.clear();
     }
 
-    public Point2D rotatePoint(Point2D point, int angle) {
-        double xOffset = drawPanel.getCenterX();
-        double yOffset = drawPanel.getCenterY();
-
-        double orgX = point.getX() - xOffset;
-        double orgY = point.getY() - yOffset;
+    public Point2D rotatePoint(Point2D point, int angle, double centerX, double centerY) {
+        double orgX = point.getX() - centerX;
+        double orgY = point.getY() - centerY;
         Matrix2D rotateMatrix = createRotationMatrix(angle);
         Vector2D translatedVector = calculateVector(orgX, orgY, rotateMatrix);
-        return new Point2D.Double(translatedVector.get_x() + xOffset, translatedVector.get_y() + yOffset);
+        return new Point2D.Double(translatedVector.get_x() + centerX, translatedVector.get_y() + centerY);
     }
 
     public void translatePointList(List<Point2D> pointList, double transX, double transY) {
@@ -133,11 +124,37 @@ public class Transform2D {
         pointList.addAll(scaledPointList);
         scaledPointList.clear();
     }
-    
-    public Point2D scalePoint(Point2D point, double scaleValue){
-        double newX = point.getX()*scaleValue + (1.0d - scaleValue) * drawPanel.getCenterX();
-        double newY = point.getY()*scaleValue + (1.0d - scaleValue) * drawPanel.getCenterY();
-        return new Point2D.Double(newX,newY);
+
+    //Scales point list with specified center of cartesian coordinate system center
+    public void scalePointList(List<Point2D> pointList, double scaleValue, double centerX, double centerY) {
+        Point2D scaledPoint, currentPoint;
+        List<Point2D> scaledPointList = new ArrayList();
+
+        for (int i = 0; i < pointList.size(); i++) {
+            currentPoint = pointList.get(i);
+            scaledPoint = scalePoint(currentPoint, scaleValue, centerX, centerY);
+            scaledPointList.add(scaledPoint);
+            //System.out.println("Rotacja pktu (" + currentPoint.getX() + "," + currentPoint.getY() + ") do punktu ("  + rotatedPoint.getX() + "," + rotatedPoint.getY() + ")");
+        }
+
+        pointList.clear();
+        pointList.addAll(scaledPointList);
+        scaledPointList.clear();
     }
-    
+
+    public Point2D scalePoint(Point2D point, double scaleValue) {
+        double pointX = point.getX();
+        double pointY = point.getY();
+        Matrix2D scaleMatrix = createScaleMatrix(scaleValue, scaleValue);
+        Vector2D scaleVector = calculateVector(pointX, pointY, scaleMatrix);
+        return new Point2D.Double(scaleVector.get_x(), scaleVector.get_y());
+    }
+
+    public Point2D scalePoint(Point2D point, double scaleValue, double centerX, double centerY) {
+        double pointX = point.getX() - centerX;
+        double pointY = point.getY() - centerY;
+        Matrix2D scaleMatrix = createScaleMatrix(scaleValue, scaleValue);
+        Vector2D scaleVector = calculateVector(pointX, pointY, scaleMatrix);
+        return new Point2D.Double(scaleVector.get_x() + centerX, scaleVector.get_y() + centerY);
+    }
 }

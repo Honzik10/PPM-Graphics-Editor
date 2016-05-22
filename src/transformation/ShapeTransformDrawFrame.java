@@ -26,9 +26,7 @@ import javax.swing.JPanel;
 public class ShapeTransformDrawFrame extends javax.swing.JFrame {
 
     ShapeTransformDrawPanel drawPanel;
-    
-    
-    
+
     public ShapeTransformDrawFrame() {
         initComponents();
         drawPanel = (ShapeTransformDrawPanel) jPanel3;
@@ -111,6 +109,7 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         rotateComponentsSet.add(new JLabel("Kat:"));
         rotateComponentsSet.add(new JTextField());
 
+        setOptionsForTransform("Translacja");
     }
 
     /**
@@ -123,42 +122,11 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        drawOptionsPanel = new javax.swing.JPanel();
         jPanel3 = new ShapeTransformDrawPanel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         transformOptionsPanel = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brak", "Linia", "Prostokąt", "Koło" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jComboBox1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox1PropertyChange(evt);
-            }
-        });
-
-        jButton1.setText("Rysuj");
-        jButton1.setMaximumSize(new java.awt.Dimension(5, 5));
-        jButton1.setMinimumSize(new java.awt.Dimension(5, 5));
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        drawOptionsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        drawOptionsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        drawOptionsPanel.setForeground(new java.awt.Color(255, 0, 204));
-        drawOptionsPanel.setMinimumSize(new java.awt.Dimension(10, 10));
-        drawOptionsPanel.setLayout(new java.awt.GridLayout(0, 1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel3.setMaximumSize(null);
@@ -228,23 +196,14 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(drawOptionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(transformOptionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)))))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(transformOptionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -252,15 +211,11 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(transformOptionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(drawOptionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                .addComponent(transformOptionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -278,48 +233,25 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         Component[] userInputComponents = transformInputPanel.getComponents();
         Transform2D transform2D = new Transform2D(drawPanel);
         SimpleShape simpleShape = drawPanel.getSimpleShape();
-        
-        
+
         double x = 0, y = 0, scaleValue = 0;
         int angle;
+        double centerX = drawPanel.getCenterX();
+        double centerY = drawPanel.getCenterY();
         if (transformOption.compareTo("Translacja") == 0) {
             x = Double.parseDouble(((JTextField) userInputComponents[1]).getText());
             y = Double.parseDouble(((JTextField) userInputComponents[3]).getText());
-            transform2D.translatePointList(simpleShape.getPointList(), x, y);
+            transform2D.translatePointList(simpleShape.getPointList(), x, -y);
         } else if (transformOption.compareTo("Skalowanie") == 0) {
+
             scaleValue = Double.parseDouble(((JTextField) userInputComponents[1]).getText());
-            transform2D.scalePointList(simpleShape.getPointList(), scaleValue);
+            transform2D.scalePointList(simpleShape.getPointList(), scaleValue, centerX, centerY);
         } else if (transformOption.compareTo("Obrót") == 0) {
             angle = Integer.parseInt(((JTextField) userInputComponents[1]).getText());
-            transform2D.rotatePointList(simpleShape.getPointList(), angle);
+            transform2D.rotatePointList(simpleShape.getPointList(), angle, centerX, centerY);
         }
         drawPanel.repaint();
-//        Shape shape = drawPanel.getCurrentShape();
-//
-//        if (shape instanceof Line2D) {
-//            Line2D line = ((Line2D) shape);
-//            if (transformOption.compareTo("Translacja") == 0) {
-//                transform2D.translateLine(line, x, y);
-//            }
-//
-//        } else if (shape instanceof Ellipse2D) {
-//            Ellipse2D ellipse = ((Ellipse2D) shape);
-//            if (transformOption.compareTo("Translacja") == 0) {
-//                transform2D.translateEllipse(ellipse, x, y);
-//            }
-//
-//        } else if (shape instanceof Rectangle2D) {
-//            Rectangle2D rectangle = ((Rectangle2D) shape);
-//            if (transformOption.compareTo("Translacja") == 0) {
-//                transform2D.translateRectangle(rectangle, x, y);
-//            } else if (transformOption.compareTo("Skalowanie") == 0) {
-//                //transform2D.scaleEllipse(ellipse, x, y);
-//            } else if (transformOption.compareTo("Obrót") == 0) {
-//                transform2D.rotateRectangle(rectangle, x, y);
-//            }
-//        }
     }//GEN-LAST:event_jButton3ActionPerformed
-
 
     private void jComboBox2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox2PropertyChange
         // TODO add your handling code here:
@@ -340,7 +272,7 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseDragged
 
     private Shape createShape(Component[] userInputComponents) {
-        String selectedDrawItem = (String) jComboBox1.getSelectedItem();
+        String selectedDrawItem = (String) jComboBox2.getSelectedItem();
         Shape shape = null;
 
         if (selectedDrawItem.compareTo("Koło") == 0) {
@@ -367,30 +299,6 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
 
         return shape;
     }
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        JPanel userInputPanel = (JPanel) drawOptionsPanel.getComponent(0);
-        Component[] userInputComponents = userInputPanel.getComponents();
-
-        if (checkUserInput(userInputComponents)) {
-            Shape shapeToDraw = createShape(userInputComponents);
-            //drawPanel.setCurrentShape(shapeToDraw);
-            drawPanel.repaint();
-        } else {
-            JOptionPane.showMessageDialog(this, "Nie podano danych wejściowych!", "Uwaga", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox1PropertyChange
-
-    }//GEN-LAST:event_jComboBox1PropertyChange
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        String selectedDrawItem = (String) jComboBox1.getSelectedItem();
-        setOptionsForShape(selectedDrawItem);
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -441,19 +349,6 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         return true;
     }
 
-    private void setOptionsForShape(String shape) {
-        drawOptionsPanel.removeAll();
-        if (shape.compareTo("Linia") == 0) {
-            drawOptionsPanel.add(lineComponentsSet);
-        } else if (shape.compareTo("Prostokąt") == 0) {
-            drawOptionsPanel.add(rectangleComponentsSet);
-        } else if (shape.compareTo("Koło") == 0) {
-            drawOptionsPanel.add(circleComponentsSet);
-        }
-        drawOptionsPanel.validate();
-        repaint();
-    }
-
     private void setOptionsForTransform(String shape) {
         transformOptionsPanel.removeAll();
         if (shape.compareTo("Translacja") == 0) {
@@ -469,11 +364,8 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel drawOptionsPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
