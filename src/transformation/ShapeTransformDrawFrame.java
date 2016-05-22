@@ -25,72 +25,15 @@ import javax.swing.JPanel;
  */
 public class ShapeTransformDrawFrame extends javax.swing.JFrame {
 
+    private JPanel translateComponentsSet;
+    private JPanel scaleComponentsSet;
+    private JPanel rotateComponentsSet;
     ShapeTransformDrawPanel drawPanel;
 
     public ShapeTransformDrawFrame() {
         initComponents();
         drawPanel = (ShapeTransformDrawPanel) jPanel3;
-        drawPanel.setBounds(-250, -375, 250, 375);
-        //drawPanel.add(new XYAxis());
-        //Line gui options components
-        x1LineLabel = new JLabel("X1:");
-        x2LineLabel = new JLabel("X2:");
-        y1LineLabel = new JLabel("Y1:");
-        y2LineLabel = new JLabel("Y2:");
-        x1LineText = new JTextField(3);
-        x2LineText = new JTextField(3);
-        y1LineText = new JTextField(3);
-        y2LineText = new JTextField(3);
-
-        //Rectangle gui options components
-        x1RectLabel = new JLabel("X1:");
-        x2RectLabel = new JLabel("X2:");
-        y1RectLabel = new JLabel("Y1:");
-        y2RectLabel = new JLabel("Y2:");
-        x1RectText = new JTextField(3);
-        x2RectText = new JTextField(3);
-        y1RectText = new JTextField(3);
-        y2RectText = new JTextField(3);
-
-        //Circle gui options components
-        xCircleLabel = new JLabel("X:");
-        yCircleLabel = new JLabel("Y:");
-        xCircleText = new JTextField(3);
-        yCircleText = new JTextField(3);
-        radiusLabel = new JLabel("Promień:");
-        radiusText = new JTextField(3);
-
-        //Sets of gui components
-        GridLayout gridLayout = new GridLayout(0, 2);
-        lineComponentsSet = new JPanel(gridLayout);
-        lineComponentsSet.add(x1LineLabel);
-        lineComponentsSet.add(x1LineText);
-        lineComponentsSet.add(y1LineLabel);
-        lineComponentsSet.add(y1LineText);
-        lineComponentsSet.add(x2LineLabel);
-        lineComponentsSet.add(x2LineText);
-        lineComponentsSet.add(y2LineLabel);
-        lineComponentsSet.add(y2LineText);
-
-        GridLayout rectOptionsGridLayout = new GridLayout(0, 4);
-        rectangleComponentsSet = new JPanel(rectOptionsGridLayout);
-        rectangleComponentsSet.add(x1RectLabel);
-        rectangleComponentsSet.add(x1RectText);
-        rectangleComponentsSet.add(y1RectLabel);
-        rectangleComponentsSet.add(y1RectText);
-        rectangleComponentsSet.add(x2RectLabel);
-        rectangleComponentsSet.add(x2RectText);
-        rectangleComponentsSet.add(y2RectLabel);
-        rectangleComponentsSet.add(y2RectText);
-
-        gridLayout = new GridLayout(3, 2);
-        circleComponentsSet = new JPanel(gridLayout);
-        circleComponentsSet.add(xCircleLabel);
-        circleComponentsSet.add(xCircleText);
-        circleComponentsSet.add(yCircleLabel);
-        circleComponentsSet.add(yCircleText);
-        circleComponentsSet.add(radiusLabel);
-        circleComponentsSet.add(radiusText);
+        GridLayout gridLayout;
 
         gridLayout = new GridLayout(2, 2);
         translateComponentsSet = new JPanel(gridLayout);
@@ -123,23 +66,13 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new ShapeTransformDrawPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        transformationComboBox = new javax.swing.JComboBox<>();
+        transformButton = new javax.swing.JButton();
         transformOptionsPanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        clearPanelButton = new javax.swing.JButton();
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel3.setMaximumSize(null);
-        jPanel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel3MouseDragged(evt);
-            }
-        });
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel3MousePressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -152,25 +85,20 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
             .addGap(0, 538, Short.MAX_VALUE)
         );
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Translacja", "Skalowanie", "Obrót" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        transformationComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Translacja", "Skalowanie", "Obrót" }));
+        transformationComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-        jComboBox2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox2PropertyChange(evt);
+                transformationComboBoxActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Przekształć");
-        jButton3.setMaximumSize(new java.awt.Dimension(5, 5));
-        jButton3.setMinimumSize(new java.awt.Dimension(5, 5));
-        jButton3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        transformButton.setText("Przekształć");
+        transformButton.setMaximumSize(new java.awt.Dimension(5, 5));
+        transformButton.setMinimumSize(new java.awt.Dimension(5, 5));
+        transformButton.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        transformButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                transformButtonActionPerformed(evt);
             }
         });
 
@@ -180,10 +108,10 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         transformOptionsPanel.setMinimumSize(new java.awt.Dimension(10, 10));
         transformOptionsPanel.setLayout(new java.awt.GridLayout(0, 1));
 
-        jButton2.setText("Wyczysc ekran");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        clearPanelButton.setText("Wyczysc ekran");
+        clearPanelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                clearPanelButtonActionPerformed(evt);
             }
         });
 
@@ -196,11 +124,11 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(transformationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(transformButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(clearPanelButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(transformOptionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -211,9 +139,9 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(transformationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transformButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearPanelButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(transformOptionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,9 +154,9 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void transformButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transformButtonActionPerformed
         // TODO add your handling code here:
-        String transformOption = (String) jComboBox2.getSelectedItem();
+        String transformOption = (String) transformationComboBox.getSelectedItem();
         JPanel transformInputPanel = (JPanel) transformOptionsPanel.getComponent(0);
         Component[] userInputComponents = transformInputPanel.getComponents();
         Transform2D transform2D = new Transform2D(drawPanel);
@@ -251,104 +179,14 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
             transform2D.rotatePointList(simpleShape.getPointList(), angle, centerX, centerY);
         }
         drawPanel.repaint();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_transformButtonActionPerformed
 
-    private void jComboBox2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBox2PropertyChange
+    private void transformationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transformationComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2PropertyChange
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-        String transformOption = (String) jComboBox2.getSelectedItem();
+        String transformOption = (String) transformationComboBox.getSelectedItem();
         setOptionsForTransform(transformOption);
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
-
-    }//GEN-LAST:event_jPanel3MousePressed
-
-    private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel3MouseDragged
-
-    private Shape createShape(Component[] userInputComponents) {
-        String selectedDrawItem = (String) jComboBox2.getSelectedItem();
-        Shape shape = null;
-
-        if (selectedDrawItem.compareTo("Koło") == 0) {
-            double x = Double.parseDouble(((JTextField) userInputComponents[1]).getText());
-            double y = Double.parseDouble(((JTextField) userInputComponents[3]).getText());
-            double r = Double.parseDouble(((JTextField) userInputComponents[5]).getText());
-            //addInputValuesForCircle(userInputComponents);
-            shape = new Ellipse2D.Double(x, y, r, r);
-
-        } else if (selectedDrawItem.compareTo("Linia") == 0) {
-            double x = Double.parseDouble(((JTextField) userInputComponents[1]).getText());
-            double y = Double.parseDouble(((JTextField) userInputComponents[3]).getText());
-            double x2 = Double.parseDouble(((JTextField) userInputComponents[5]).getText());
-            double y2 = Double.parseDouble(((JTextField) userInputComponents[7]).getText());
-            shape = new Line2D.Double(x, y, x2, y2);
-            //addInputValues(userInputComponents);
-        } else if (selectedDrawItem.compareTo("Prostokąt") == 0) {
-            double x = Double.parseDouble(((JTextField) userInputComponents[1]).getText());
-            double y = Double.parseDouble(((JTextField) userInputComponents[3]).getText());
-            double x2 = Double.parseDouble(((JTextField) userInputComponents[5]).getText());
-            double y2 = Double.parseDouble(((JTextField) userInputComponents[7]).getText());
-            shape = new Rectangle2D.Double(x, y, x2, y2);
-        }
-
-        return shape;
-    }
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        drawPanel.getSimpleShape().removePoints();
-        drawPanel.repaint();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void addInputValuesForCircle(Component[] userInputComponents) {
-        BasicShapeDrawPanel dp = ((BasicShapeDrawPanel) jPanel3);
-        String xStr = ((JTextField) userInputComponents[1]).getText();
-        String yStr = ((JTextField) userInputComponents[3]).getText();
-        String diameterStr = ((JTextField) userInputComponents[5]).getText();
-
-        double diameter = Double.parseDouble(diameterStr);
-        int x = Integer.parseInt(xStr);
-        int y = Integer.parseInt(yStr);
-        Point p = new Point(x, y);
-        dp.getDrawPoints().add(p);
-        dp.setDiameter(diameter);
-    }
-
-    public void addInputValues(Component[] userInputComponents) {
-        BasicShapeDrawPanel dp = ((BasicShapeDrawPanel) jPanel3);
-        for (int i = 0; i < userInputComponents.length; i = i + 4) {
-            if (userInputComponents[i + 1].getClass().equals(JTextField.class) && userInputComponents[i + 3].getClass().equals(JTextField.class)) {
-                String xStr = ((JTextField) userInputComponents[i + 1]).getText();
-                String yStr = ((JTextField) userInputComponents[i + 3]).getText();
-                int x = Integer.parseInt(xStr);
-                int y = Integer.parseInt(yStr);
-                Point p = new Point(x, y);
-                dp.getDrawPoints().add(p);
-            }
-        }
-    }
-
-    //Return false if user input is blank
-    private boolean checkUserInput(Component[] userInputComponentsP) {
-        Component[] userInputComponents = userInputComponentsP;
-
-        for (int i = 0; i < userInputComponents.length; i++) {
-            if (userInputComponents[i].getClass().equals(JTextField.class)) {
-                if (((JTextField) userInputComponents[i]).getText().isEmpty() == true) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
+    }//GEN-LAST:event_transformationComboBoxActionPerformed
+    
     private void setOptionsForTransform(String shape) {
         transformOptionsPanel.removeAll();
         if (shape.compareTo("Translacja") == 0) {
@@ -361,58 +199,20 @@ public class ShapeTransformDrawFrame extends javax.swing.JFrame {
         transformOptionsPanel.validate();
         repaint();
     }
-
+    
+    private void clearPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearPanelButtonActionPerformed
+        // TODO add your handling code here:
+        drawPanel.getSimpleShape().removePoints();
+        drawPanel.repaint();
+    }//GEN-LAST:event_clearPanelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton clearPanelButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton transformButton;
     private javax.swing.JPanel transformOptionsPanel;
+    private javax.swing.JComboBox<String> transformationComboBox;
     // End of variables declaration//GEN-END:variables
 
-    //Linie
-    private JLabel x1LineLabel;
-    private JLabel x2LineLabel;
-    private JLabel y1LineLabel;
-    private JLabel y2LineLabel;
-    private JTextField x1LineText;
-    private JTextField x2LineText;
-    private JTextField y1LineText;
-    private JTextField y2LineText;
-
-    //Square (including line objects)
-    private JLabel x1RectLabel;
-    private JLabel x2RectLabel;
-    //private JLabel x3RectLabel;
-    //private JLabel x4RectLabel;
-    private JLabel y1RectLabel;
-    private JLabel y2RectLabel;
-    //private JLabel y3RectLabel;
-    //private JLabel y4RectLabel;
-    private JTextField x1RectText;
-    private JTextField x2RectText;
-    //private JTextField x3RectText;
-    //private JTextField x4RectText;
-    private JTextField y1RectText;
-    private JTextField y2RectText;
-    //private JTextField y3RectText;
-    //private JTextField y4RectText;
-
-    //Circle (including x1, y1 points /w text + label)
-    private JLabel xCircleLabel;
-    private JLabel yCircleLabel;
-    private JTextField xCircleText;
-    private JTextField yCircleText;
-    private JLabel radiusLabel;
-    private JTextField radiusText;
-
-    //Sets of dynamically changed gui
-    private JPanel lineComponentsSet;
-    private JPanel rectangleComponentsSet;
-    private JPanel circleComponentsSet;
-    private JPanel translateComponentsSet;
-    private JPanel scaleComponentsSet;
-    private JPanel rotateComponentsSet;
 }

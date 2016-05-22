@@ -1,11 +1,6 @@
 package transformation;
 
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,28 +98,6 @@ public class Transform2D {
         return new Point2D.Double(translatedVector.get_x(), translatedVector.get_y());
     }
 
-    public void scalePointList(List<Point2D> pointList, double scaleValue) {
-        Point2D scaledPoint, currentPoint;
-        List<Point2D> scaledPointList = new ArrayList();
-
-        for (int i = 0; i < pointList.size(); i++) {
-            currentPoint = pointList.get(i);
-            scaledPoint = scalePoint(currentPoint, scaleValue);
-            scaledPointList.add(scaledPoint);
-            //System.out.println("Rotacja pktu (" + currentPoint.getX() + "," + currentPoint.getY() + ") do punktu ("  + rotatedPoint.getX() + "," + rotatedPoint.getY() + ")");
-        }
-
-        for (int i = 0; i < scaledPointList.size(); i++) {
-            Point2D p1 = pointList.get(i);
-            Point2D p2 = scaledPointList.get(i);
-            //System.out.println("Translacja pktu (" + p1.getX() + "," + p1.getY() + ") do punktu (" + p2.getX() + "," + p2.getY() + ")");
-        }
-
-        pointList.clear();
-        pointList.addAll(scaledPointList);
-        scaledPointList.clear();
-    }
-
     //Scales point list with specified center of cartesian coordinate system center
     public void scalePointList(List<Point2D> pointList, double scaleValue, double centerX, double centerY) {
         Point2D scaledPoint, currentPoint;
@@ -140,14 +113,6 @@ public class Transform2D {
         pointList.clear();
         pointList.addAll(scaledPointList);
         scaledPointList.clear();
-    }
-
-    public Point2D scalePoint(Point2D point, double scaleValue) {
-        double pointX = point.getX();
-        double pointY = point.getY();
-        Matrix2D scaleMatrix = createScaleMatrix(scaleValue, scaleValue);
-        Vector2D scaleVector = calculateVector(pointX, pointY, scaleMatrix);
-        return new Point2D.Double(scaleVector.get_x(), scaleVector.get_y());
     }
 
     public Point2D scalePoint(Point2D point, double scaleValue, double centerX, double centerY) {

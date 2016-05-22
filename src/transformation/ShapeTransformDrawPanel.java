@@ -18,10 +18,6 @@ public class ShapeTransformDrawPanel extends JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 mousePressedAction(evt);
             }
-
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                mouseReleasedAction(evt);
-            }
         });
     }
 
@@ -32,10 +28,6 @@ public class ShapeTransformDrawPanel extends JPanel {
         Point2D clickPoint = new Point2D.Double(x, y);
         simpleShape.addPoint(clickPoint);
         repaint();
-    }
-
-    private void mouseReleasedAction(MouseEvent evt) {
-
     }
 
     @Override
@@ -90,6 +82,4 @@ public class ShapeTransformDrawPanel extends JPanel {
     public int getCenterY() {
         return centerY;
     }
-    
-    
 }

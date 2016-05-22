@@ -201,5 +201,5 @@ public class Matrix2D {
         elm[4] = sy;
     }  // scale  
 
-}  // class Matrix2D
+}
 
