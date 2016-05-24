@@ -14,13 +14,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileFilter;
+import morfology.MorfologyJFrame;
 import transformation.ShapeTransformDrawFrame;
-import transformation.*;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -34,6 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     BeziereCurveFrame beziereCurveFrame;
     BasicShapeDrawFrame shapePainterFrame;
     ShapeTransformDrawFrame shapeTransformDrawFrame;
+    MorfologyJFrame morfologyFrame;
 
     public MainFrame() {
         initComponents();
@@ -58,7 +58,8 @@ public class MainFrame extends javax.swing.JFrame {
         JMenuItem beziereCurveMI = new JMenuItem("Krzywe Beziere");
         JMenuItem shapeDrawMI = new JMenuItem("Prymitywy graficzne oraz kanwa");
         JMenuItem shapeTransformMI = new JMenuItem("Przekszatalcenia 2D");
-        
+        JMenuItem morfoloryTransformMI = new JMenuItem("Przekszałcenia morfologiczne");
+
         openMI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,6 +126,12 @@ public class MainFrame extends javax.swing.JFrame {
                 openShapeTransformFrame();
             }
         });
+        morfoloryTransformMI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openMorfologyFrame();
+            }
+        });
 
         fileMenu.add(openMI);
         fileMenu.add(saveMI);
@@ -137,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
         otherMenu.add(beziereCurveMI);
         otherMenu.add(shapeDrawMI);
         otherMenu.add(shapeTransformMI);
+        otherMenu.add(morfoloryTransformMI);
     }
 
     /**
@@ -215,6 +223,18 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+
+    private void openMorfologyFrame() {
+        if (isImageLoaded()) {
+            if (morfologyFrame == null) {
+                morfologyFrame = new MorfologyJFrame(imagePanel);
+            }
+            morfologyFrame.setVisible(true);
+        } else {
+            displayGuiMessage("Musisz otworzyć plik PPM z menu Plik -> Otworz", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }
 
     private void openEditPicFrame() {
@@ -300,9 +320,9 @@ public class MainFrame extends javax.swing.JFrame {
             shapePainterFrame.setVisible(true);
         }
     }
-    
-    private void openShapeTransformFrame(){
-        if(shapeTransformDrawFrame == null){
+
+    private void openShapeTransformFrame() {
+        if (shapeTransformDrawFrame == null) {
             shapeTransformDrawFrame = new ShapeTransformDrawFrame();
         }
         shapeTransformDrawFrame.setVisible(true);
