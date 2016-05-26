@@ -378,9 +378,11 @@ public class PpmPanel extends JPanel {
             int scaleIndex = checkForScaling();
 
             if (scaleIndex == 0) {
+                System.out.println("Displaying image of oryginal size");
                 resizePanel(oryginalWidth, oryginalHeight);
                 displayOryginalImage();
             } else {
+                System.out.println("Displaying image of scaled size");
                 resizePanel(scaledWidth, scaledHeight);
                 displayScaledImge(scaleIndex);
             }
