@@ -49,8 +49,8 @@ public class MorfologyJFrame extends javax.swing.JFrame {
         rowNTextField = new javax.swing.JTextField();
         colNTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        displayStructElButton = new javax.swing.JButton();
+        setStructElButton = new javax.swing.JButton();
         centerRowTextField = new javax.swing.JTextField();
         centerColTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -131,17 +131,17 @@ public class MorfologyJFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Rozmiar struct el:");
 
-        jButton1.setText("Wyświetl");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        displayStructElButton.setText("Wyświetl");
+        displayStructElButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                displayStructElButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Ustaw struct el");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        setStructElButton.setText("Ustaw struct el");
+        setStructElButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                setStructElButtonActionPerformed(evt);
             }
         });
 
@@ -211,8 +211,8 @@ public class MorfologyJFrame extends javax.swing.JFrame {
                                     .addComponent(centerRowTextField)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(centerColTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton1)
+                                .addComponent(setStructElButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(displayStructElButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rowNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -239,7 +239,7 @@ public class MorfologyJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(openingButton)
-                            .addComponent(jButton1))
+                            .addComponent(displayStructElButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(closingButton)
@@ -252,7 +252,7 @@ public class MorfologyJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(thickeningButton)
-                            .addComponent(jButton2)))
+                            .addComponent(setStructElButton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -339,15 +339,15 @@ public class MorfologyJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_centerRowTextFieldMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void displayStructElButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayStructElButtonActionPerformed
         addTextFieldsToPanel();
         structElPanel.validate();
         repaint();
         structElPanel.repaint();
         structElPanel.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_displayStructElButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void setStructElButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setStructElButtonActionPerformed
         int centerRow = Integer.parseInt(centerRowTextField.getText());
         int centerCol = Integer.parseInt(centerColTextField.getText());
         int rowN = Integer.parseInt(rowNTextField.getText());
@@ -358,7 +358,7 @@ public class MorfologyJFrame extends javax.swing.JFrame {
         structEl.fillStructElement(componentArray);
         
         structElement = structEl;
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_setStructElButtonActionPerformed
 
     public void setNewPixelsToDisplay(int[][] newPixels) {
         imgPanel.setPixels(newPixels);
@@ -430,9 +430,8 @@ public class MorfologyJFrame extends javax.swing.JFrame {
     private javax.swing.JButton closingButton;
     private javax.swing.JTextField colNTextField;
     private javax.swing.JButton dilationButton;
+    private javax.swing.JButton displayStructElButton;
     private javax.swing.JButton erosionButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -447,6 +446,7 @@ public class MorfologyJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JButton openingButton;
     private javax.swing.JTextField rowNTextField;
+    private javax.swing.JButton setStructElButton;
     private javax.swing.JPanel structElPanel;
     private javax.swing.JButton thickeningButton;
     private javax.swing.JButton thinningButton;

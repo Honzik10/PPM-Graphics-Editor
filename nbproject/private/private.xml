@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/other/GreenAreaDetector.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/binaryzation/BinaryzationFrame.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/imagefilter/ImageFilterFrame.java</file>
             <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/morfology/Morfology.java</file>
-            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/morfology/MorfologyJFrame.java</file>
-            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/basicshapes/BasicShapeDrawFrame.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/mainpckg/MainFrame.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/binaryzation/Binaryzation.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/morfology/StructElement.java</file>
+            <file>file:/C:/Users/honzik/Documents/NetBeansProjects/GrafikaK5/src/other/MyArray.java</file>
         </group>
     </open-files>
 </project-private>

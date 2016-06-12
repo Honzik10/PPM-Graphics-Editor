@@ -344,7 +344,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         editPicFrame = new EditPictureFrame(imagePanel);
         //editPicFrame.setVisible(true);
-        imgFilterFrame = new ImageFilterFrame(imagePanel);
+        imgFilterFrame = new ImageFilterFrame(imagePanel, this);
         this.resize2();
         //imgFilterFrame.setVisible(true);
     }

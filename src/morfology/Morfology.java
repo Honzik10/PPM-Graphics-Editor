@@ -1,14 +1,9 @@
 package morfology;
 
-import java.awt.geom.Point2D;
-import java.util.Arrays;
-import java.util.Random;
 import other.MyArray;
 import other.PpmPanel;
 
 public class Morfology {
-
-    //TODO Opening + CLOSING FIXING!
     PpmPanel imgPanel;
 
     /*
@@ -29,6 +24,27 @@ public class Morfology {
     //Saving on copy pixel array, iterating over oryginal pixel array
     public int[][] dilation(int[][] pixelsCopy, StructElement structuralEl) {
         int[][] oryginalPixels = imgPanel.getPixels();
+        int rowNumber = pixelsCopy.length;
+        int colNumber = pixelsCopy[0].length;
+
+        int skipRowNumber = structuralEl.getRowNumber();
+        int skipColNumber = structuralEl.getColumnNumber();
+        int centerRow = structuralEl.getCenterRow();
+        int centerCol = structuralEl.getCenterCol();
+        boolean setBlack;
+        for (int row = 0; row <= rowNumber - skipRowNumber; row++) {
+            for (int column = 0; column <= colNumber - skipColNumber; column++) {
+                setBlack = checkIfStructElContainsColor(oryginalPixels, structuralEl, row, column, blackRGB);
+                if (setBlack) {
+                    pixelsCopy[row + centerRow][column + centerCol] = blackRGB;
+                }
+            }
+        }
+
+        return pixelsCopy;
+    }
+    
+    public int[][] dilation(int[][]oryginalPixels, int[][] pixelsCopy, StructElement structuralEl) {
         int rowNumber = pixelsCopy.length;
         int colNumber = pixelsCopy[0].length;
 
@@ -74,7 +90,7 @@ public class Morfology {
     // Dilation on erosion
     public int[][] opening(int[][] pixelsCopy, StructElement structuralEl) {
         int[][] pixelsAfterErosion = erosion(pixelsCopy, structuralEl);
-        imgPanel.setPixels(pixelsAfterErosion);
+        //imgPanel.setPixels(pixelsAfterErosion);
         int[][] erodedPixelsCopy = MyArray.copyArray(pixelsAfterErosion);
         int[][] pixelsAfterOpening = dilation(erodedPixelsCopy, structuralEl);
         return pixelsAfterOpening;
@@ -83,7 +99,7 @@ public class Morfology {
     // Erosion on dilation
     public int[][] closing(int[][] pixelsCopy, StructElement structuralEl) {
         int[][] pixelsAfterDilation = dilation(pixelsCopy, structuralEl);
-        imgPanel.setPixels(pixelsAfterDilation);
+        //imgPanel.setPixels(pixelsAfterDilation);
         int[][] dilatedPixelsCopy = MyArray.copyArray(pixelsAfterDilation);
         int[][] pixelsAfterClosing = erosion(dilatedPixelsCopy, structuralEl);
         return pixelsAfterClosing;
@@ -137,7 +153,7 @@ public class Morfology {
         return pixelsCopy;
     }
 
-    public boolean checkIfStructElContainsColor(int[][] pixels, StructElement structuralEl, int pixelRow, int pixelCol, int rgbColor) {
+    private boolean checkIfStructElContainsColor(int[][] pixels, StructElement structuralEl, int pixelRow, int pixelCol, int rgbColor) {
         int structElHeight = structuralEl.getColumnNumber();
         int startRow = pixelRow;
         int endRow = pixelRow + structElHeight - 1;
@@ -167,7 +183,7 @@ public class Morfology {
         return false;
     }
 
-    public boolean checkIfStructElContainsHit(int[][] pixels, StructElement structuralEl, int pixelRow, int pixelCol) {
+    private boolean checkIfStructElContainsHit(int[][] pixels, StructElement structuralEl, int pixelRow, int pixelCol) {
         int structElHeight = structuralEl.getColumnNumber();
         int startRow = pixelRow;
         int endRow = pixelRow + structElHeight - 1;

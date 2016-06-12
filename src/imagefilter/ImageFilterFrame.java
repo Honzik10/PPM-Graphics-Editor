@@ -5,8 +5,11 @@
  */
 package imagefilter;
 
+import javax.swing.JOptionPane;
 import other.PpmPanel;
-import imagefilter.ImageFilter;
+import mainpckg.MainFrame;
+import other.GreenAreaDetector;
+import other.MyArray;
 
 /**
  *
@@ -16,11 +19,15 @@ public class ImageFilterFrame extends javax.swing.JFrame {
 
     ImageFilter imgFilter;
     PpmPanel imgPanel;
-    
-    public ImageFilterFrame(PpmPanel panel) {
+    MainFrame frame;
+
+    public ImageFilterFrame(PpmPanel panel, MainFrame frame) {
         initComponents();
         imgFilter = new ImageFilter(panel);
+        imgPanel = panel;
+        this.frame = frame;
     }
+
     public ImageFilterFrame() {
         initComponents();
     }
@@ -37,6 +44,7 @@ public class ImageFilterFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         avgFilterButton.setText("Filtr uśredniający");
         avgFilterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +97,13 @@ public class ImageFilterFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Green area detection");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,7 +118,8 @@ public class ImageFilterFrame extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sobelFilterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,7 +133,7 @@ public class ImageFilterFrame extends javax.swing.JFrame {
                 .addComponent(sobelFilterButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -125,7 +141,9 @@ public class ImageFilterFrame extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addContainerGap())
         );
 
         pack();
@@ -176,6 +194,13 @@ public class ImageFilterFrame extends javax.swing.JFrame {
         imgFilter.filterImage6();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        GreenAreaDetector greenAreaDetector = new GreenAreaDetector(imgPanel, frame);
+        int[][] pixelsCopy = MyArray.copyArray(imgPanel.getPixels());
+        double greenPercentage = greenAreaDetector.detect(pixelsCopy);
+        JOptionPane.showMessageDialog(this, "Green percent: " + greenPercentage, "Result", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avgFilterButton;
@@ -184,6 +209,7 @@ public class ImageFilterFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton medianFilterButton;
     private javax.swing.JButton sobelFilterButton;
     // End of variables declaration//GEN-END:variables

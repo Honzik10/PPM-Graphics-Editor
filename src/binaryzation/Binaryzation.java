@@ -35,6 +35,23 @@ public class Binaryzation {
 
         imgPanel.displayImage();
     }
+    
+    public void binaryze(int[][] pixels, int threshold) {
+        Color white = new Color(255, 255, 255);
+
+        for (int pixel[] : pixels) {
+            for (int i = 0; i < pixel.length; i++) {
+                int currPixelValue = pixel[i];
+                Color c = new Color(currPixelValue);
+                int grayValue = c.getRed();
+                if (grayValue <= threshold) {
+                    pixel[i] = 0;
+                } else {
+                    pixel[i] = white.getRGB();
+                }
+            }
+        }
+    }
 
     public int calculateBlackPercentageThreshold(int percent) {
         HistogramFrame h = imgFrame.getHistogram(false);
@@ -101,8 +118,8 @@ public class Binaryzation {
     public int calculateEntropySelection() {
         return 0;
     }
-    
-    public int calculateMimimumErrorThreshold(){
+
+    public int calculateMimimumErrorThreshold() {
         return 0;
     }
 }

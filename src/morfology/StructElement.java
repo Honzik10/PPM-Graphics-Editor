@@ -27,6 +27,23 @@ public class StructElement {
         this.centerCol = centerCol;
         this.centerRow = centerRow;
     }
+    
+    public StructElement(int rowN, int colN, int centerRow, int centerCol, int[] elements) {
+        structEl = new int[rowN][colN];
+        this.centerCol = centerCol;
+        this.centerRow = centerRow;
+        
+        int row= 0, col = 0;
+        for(int i=0;i<elements.length;i++){
+            structEl[row][col] = elements[i];
+            
+            col++;
+            if(col == colN){
+                col = 0;
+                row++;
+            }
+        }
+    }
 
     public void fillStructElement(Component[] component) {
         int rowN = structEl.length;
@@ -72,7 +89,7 @@ public class StructElement {
         }
         stringBuilder.append("]");
         stringBuilder.append(System.getProperty("line.separator"));
-        stringBuilder.append("CENTER: " + centerRow + "," + centerCol);
+        stringBuilder.append("CENTER: ").append(centerRow).append(",").append(centerCol);
 
         return stringBuilder.toString();
     }
@@ -107,7 +124,12 @@ public class StructElement {
     }
 
     public int getValue(int row, int column) {
-        return structEl[row][column];
+        try{
+            return structEl[row][column];
+        }catch(ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }
